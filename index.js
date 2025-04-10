@@ -35,24 +35,24 @@ client.on('message', async msg => {
     const chat = await msg.ge();
 
     if (msg.type === 'sticker') {
-        console.log(`Sticker received in group: ${chat.name}`);
+        // console.log(`Sticker received in group: ${chat.name}`);
 
         if (groupIds.includes(chat.id._serialized)) {
-            console.log(`Group with ID ${chat.id._serialized} and name ${chat.name} is in the list, forwarding to other groups...`);
+            // console.log(`Group with ID ${chat.id._serialized} and name ${chat.name} is in the list, forwarding to other groups...`);
 
             const media = await msg.downloadMedia();
             if (media) {
                 
                 for (const id of groupIds) {
                     if (id !== chat.id._serialized) { 
-                        console.log(`Forwarding sticker to ID: ${id}`);
+                        // console.log(`Forwarding sticker to ID: ${id}`);
                         const groupChat = await client.getChatById(id);
                         groupChat.sendMessage(media, { sendMediaAsSticker: true });
-                        console.log(`Sticker forwarded to group: ${groupChat.name}`);
+                        // console.log(`Sticker forwarded to group: ${groupChat.name}`);
                     }
                 }
             } else {
-                console.log("Failed to download the sticker.");
+                // console.log("Failed to download the sticker.");
             }
         }
     }
