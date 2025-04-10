@@ -61,18 +61,27 @@ client.on('message', async msg => {
 // TEST!
 
 client.on('group_join', async (notification) => {
-    const { contact, chat } = notification;
-    const phoneNumber = contact.id._serialized;
-    
-    const countryCode = phoneNumber.slice(0, 4);
+    const chat = await notification.getChat();
 
-    if (countryCode !== '+972') {
-        console.log(`User ${contact.pushname} with phone number ${phoneNumber} is from country ${countryCode}. Kicking out...`);
-        
-        // await chat.removeParticipants([contact.id._serialized]);
-    } else {
-        console.log(`User ${contact.pushname} with phone number ${phoneNumber} is from country ${countryCode}.`);
+    const newParticipants = notification.recipientIds;
+
+    for (const id of newParticipants) {
+        const number = id.split('@')[0];
+
+        if (!number.startsWith('972')) {
+            console.log(`User ${number} is not from Israel. Removing...`);
+            try {
+                // await chat.removeParticipants([id]);
+                console.log(`Removed ${number} from group ${chat.name}`);
+            } catch (err) {
+                console.error(`Failed to remove ${number}:`, err);
+            }
+        } else {
+            console.log(`User ${number} is from IL, allowed to stay.`);
+        }
     }
 });
+
+client.initialize();
 
 client.initialize();
