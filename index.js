@@ -13,8 +13,6 @@ client.on('qr', (qr) => {
 client.on('ready', async () => {
     console.log('Bot is connected and ready!');
 
-    // Uncomment the following lines to list all chats:
-
     const chats = await client.getChats();
     console.log("List of chats:");
 
@@ -34,20 +32,19 @@ const groupIds = [
 ];
 
 client.on('message', async msg => {
-    const chat = await msg.getChat();
+    const chat = await msg.ge();
 
     if (msg.type === 'sticker') {
         console.log(`Sticker received in group: ${chat.name}`);
 
-        // בדוק אם ה-ID של הצ'אט הנוכחי תואם לאחד מה-ID-ים שברשימה
         if (groupIds.includes(chat.id._serialized)) {
             console.log(`Group with ID ${chat.id._serialized} and name ${chat.name} is in the list, forwarding to other groups...`);
 
             const media = await msg.downloadMedia();
             if (media) {
-                // שלח את המדבקה לכל ה-ID-ים ברשימה
+                
                 for (const id of groupIds) {
-                    if (id !== chat.id._serialized) { // לא לשלוח חזרה לאותה קבוצה
+                    if (id !== chat.id._serialized) { 
                         console.log(`Forwarding sticker to ID: ${id}`);
                         const groupChat = await client.getChatById(id);
                         groupChat.sendMessage(media, { sendMediaAsSticker: true });
