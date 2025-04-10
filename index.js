@@ -58,4 +58,21 @@ client.on('message', async msg => {
     }
 });
 
+// TEST!
+
+client.on('group_join', async (notification) => {
+    const { contact, chat } = notification;
+    const phoneNumber = contact.id._serialized;
+    
+    const countryCode = phoneNumber.slice(0, 4);
+
+    if (countryCode !== '+972') {
+        console.log(`User ${contact.pushname} with phone number ${phoneNumber} is from country ${countryCode}. Kicking out...`);
+        
+        // await chat.removeParticipants([contact.id._serialized]);
+    } else {
+        console.log(`User ${contact.pushname} with phone number ${phoneNumber} is from country ${countryCode}.`);
+    }
+});
+
 client.initialize();
