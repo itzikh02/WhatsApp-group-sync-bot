@@ -32,7 +32,7 @@ const groupIds = [
 ];
 
 client.on('message', async msg => {
-    const chat = await msg.ge();
+    const chat = await msg.getChat();
 
     if (msg.type === 'sticker') {
         // console.log(`Sticker received in group: ${chat.name}`);
