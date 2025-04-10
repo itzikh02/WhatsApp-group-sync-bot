@@ -1,6 +1,6 @@
 # WhatsApp Group Sync Bot
 
-This bot allows you to forward received stickers from one WhatsApp group to multiple other WhatsApp groups automatically. It uses the [whatsapp-web.js](https://github.com/mukulhase/web.whatsapp.io) library to interact with WhatsApp Web.
+This bot allows you to forward received stickers from one WhatsApp group to multiple other WhatsApp groups automatically. It uses the [whatsapp-web.js](https://wwebjs.dev/) library to interact with WhatsApp Web.
 
 ## Features
 
@@ -22,8 +22,8 @@ To use this bot, you'll need the following:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-repo/whatsapp-group-sync-bot.git
-   cd whatsapp-group-sync-bot
+   git clone https://github.com/itzikh02/WhatsApp-group-sync-bot.git
+   cd WhatsApp-group-sync-bot
    ```
 
 2. Install the required dependencies:
@@ -62,7 +62,3 @@ You can easily customize the bot by adjusting the following:
 
 - If the bot is unable to download the sticker, make sure the message contains a valid media attachment.
 - Ensure the bot has the appropriate permissions in all involved groups to send messages.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
