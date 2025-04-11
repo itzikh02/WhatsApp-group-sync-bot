@@ -5,13 +5,18 @@ const client = new Client({
     authStrategy: new LocalAuth(),
 });
 
+function log(type, message) {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] [${type.toUpperCase()}] ${message}`);
+}
+
 client.on('qr', (qr) => {
     console.log("Scan the QR code to authenticate:");
     qrcode.generate(qr, { small: true });
 });
 
 client.on('ready', async () => {
-    console.log('Bot is connected and ready!');
+    log('info', 'Bot is ready!');
 
     const chats = await client.getChats();
     console.log("List of chats:");
@@ -35,7 +40,7 @@ client.on('message', async msg => {
     const chat = await msg.getChat();
 
     if (msg.type === 'sticker') {
-        console.log(`Sticker received in group: ${chat.name}`);
+        log('info', `Sticker received in group: ${chat.name}`);
 
         if (groupIds.includes(chat.id._serialized)) {
             // console.log(`Group with ID ${chat.id._serialized} and name ${chat.name} is in the list, forwarding to other groups...`);
@@ -52,10 +57,10 @@ client.on('message', async msg => {
                             }
                         }
                     } else {
-                        console.log("Media is null or empty.");
+                        log('error', `Media is null or empty`);
                     }
                 } catch (err) {
-                    console.error("Failed to download media:", err.message);
+                    log("error", `Failed to download the sticker: ${err.message}`);
                 }
             }
         }
