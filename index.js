@@ -10,6 +10,8 @@ function log(type, message) {
     console.log(`[${timestamp}] [${type.toUpperCase()}] ${message}`);
 }
 
+console.log("Bot is starting")
+
 client.on('qr', (qr) => {
     console.log("Scan the QR code to authenticate:");
     qrcode.generate(qr, { small: true });
